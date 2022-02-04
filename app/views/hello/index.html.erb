@@ -1,0 +1,13 @@
+音楽オススメサイト
+<%= link_to 'ログイン', :controller => "devise/sessions", :action => "new" %>
+<%= link_to '新規登録', :controller => "devise/registrations", :action => "new" %>
+<%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
+<div class="musics-container">
+  <% @musics.each do |t| %>
+    <div class="music">
+      <%= t.artist_name %>
+      <%= t.song_name %>
+      <%= t.created_at %>
+    </div>
+  <% end %>
+</div>

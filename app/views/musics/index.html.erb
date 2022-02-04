@@ -1,0 +1,29 @@
+<h1>音楽オススメサイト</h1>
+<% if user_signed_in? %>
+  <%= link_to '投稿', :controller => "musics", :action => "new" %>
+  <%= link_to "マイページ", user_path(current_user.id) %>　
+  <%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
+<% else %>
+  <%= link_to 'ログイン', :controller => "devise/sessions", :action => "new" %>
+  <%= link_to '新規登録', :controller => "devise/registrations", :action => "new" %>
+<% end %>
+
+<h3>投稿を検索</h3>
+ <%= form_tag({controller:"musics",action:"index"}, method: :get) do %>
+   <%= text_field_tag :search %>
+   <%= submit_tag '検索する'  %>
+<% end %>
+
+<h3>投稿一覧</h3>
+<div class="musics-container">
+  <% @musics.each do |t| %>
+    <a href="/users/<%= t.user.id %>"><%= t.user.name %></a>
+    好きなアーティスト : <%= t.user.like_artist %>
+    好きでないアーティスト : <%= t.user.unlike_artist %>
+    <div class="music">
+      <%= t.artist_name %>
+      <%= t.song_name %>
+      <%= t.created_at %>
+    </div>
+  <% end %>
+</div>

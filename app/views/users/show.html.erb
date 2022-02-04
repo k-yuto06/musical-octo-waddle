@@ -1,0 +1,25 @@
+<h1>音楽オススメサイト</h1>
+<h3>プロフィール</h3>
+<p>名前 : <%= @user.name %></p>
+<p>好きなアーティスト : <%= @user.like_artist %></p>
+<p>好きでないアーティスト : <%= @user.unlike_artist %></p>
+
+<% if user_signed_in? %>
+ <% if current_user.id == @user.id %>
+  <%= link_to "編集する", edit_user_registration_path %>
+ <% end %>
+<% end %>
+
+<h3>あなたの投稿</h3>
+<% @user.musics.each do |t| %>
+  アーティスト名：<%= t.artist_name %>
+  曲名：<%= t.song_name %>
+  <% if user_signed_in? %>
+   <% if current_user.id == @user.id %>
+    <%= link_to "編集する", edit_music_path(t.id) %>
+    <%= button_to "削除する", music_path(t.id), method: :delete %>
+   <% end %>
+  <% end %>
+<% end %>
+
+<%= link_to "トップ", musics_path %>
